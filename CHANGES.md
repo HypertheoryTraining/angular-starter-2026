@@ -351,6 +351,15 @@ Like to set at least one path to make imports cleaner.
 
 After the initial run of `ng add eslint`, here's the diff between it and what I have.
 
+The big changes here are:
+
+- Storybook adds some stuff.
+- Added some ignores
+- Sheriff configuration
+- Slightly tweaked some default rules (const, etc.)
+- Made it so it will let me use `type` instead of `interface` because it isn't the boss of me.
+
+
 ```diff
 --- eslint.config.js	2026-01-25 20:11:17
 +++ ../angular-starter-2026/eslint.config.js	2026-01-25 19:51:11
