@@ -6,11 +6,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./areas/home/feature-landing/landing.routes').then((r) => r.homeLandingFeatureRoutes),
   },
-  {
-    path: 'dev',
-    loadChildren: () =>
-      import('./areas/dev/feature-landing/landing.routes').then((r) => r.devLandingFeatureRoutes),
-  },
+
   {
     path: 'profile',
     loadChildren: () =>
@@ -18,11 +14,7 @@ export const routes: Routes = [
         (r) => r.profileLandingFeatureRoutes,
       ),
   },
-  {
-    path: 'demos',
-    loadChildren: () =>
-      import('./areas/dev/demos-aa-landing/demos-aa.routes').then((r) => r.demosAaFeatureRoutes),
-  },
+
   {
     path: '**',
     redirectTo: 'home',

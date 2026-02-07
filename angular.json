@@ -4,9 +4,7 @@
   "cli": {
     "packageManager": "npm",
     "analytics": false,
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "schematicCollections": ["angular-eslint"]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -59,34 +57,10 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "docs"
               }
             ],
-            "styles": [
-              "src/styles.css",
-              "public/darcula.css",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.css"
-            ],
-            "scripts": [
-              "node_modules/prismjs/prism.js",
-              "node_modules/prismjs/plugins/show-language/prism-show-language.js",
-              "node_modules/prismjs/plugins/treeview/prism-treeview.js",
-              "node_modules/prismjs/components/prism-csharp.min.js",
-              "node_modules/prismjs/components/prism-bash.js",
-              "node_modules/prismjs/components/prism-css.min.js",
-              "node_modules/prismjs/components/prism-diff.js",
-              "node_modules/prismjs/components/prism-http.js",
-              "node_modules/prismjs/components/prism-typescript.js",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
-              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.js",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.js",
-              "node_modules/clipboard/dist/clipboard.min.js",
-              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js"
-            ]
+            "styles": ["src/styles.css"],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -133,10 +107,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "e2e": {
@@ -148,36 +119,6 @@
             "production": {
               "devServerTarget": "angular-starter:serve:production"
             }
-          }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "angular-starter:build",
-            "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "."
-            ],
-            "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "angular-starter:build",
-            "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "."
-            ],
-            "outputDir": "storybook-static"
           }
         }
       }

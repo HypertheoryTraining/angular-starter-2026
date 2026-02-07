@@ -88,11 +88,5 @@ export class App {
     return this.router.url.startsWith('/home');
   }
   store = inject(authStore);
-  links = signal<(SectionLink & { icon: IconName })[]>([
-    {
-      icon: 'lucideCode',
-      path: '/dev',
-      title: 'Dev Stuff',
-    },
-  ]);
+  links = signal<(SectionLink & { icon: IconName })[]>([]);
 }

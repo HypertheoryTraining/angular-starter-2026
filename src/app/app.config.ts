@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     authStore,
-    provideIcons(icons)
+    provideIcons(icons),
   ],
 };

@@ -7,6 +7,7 @@ I took Tailwind as the CSS option, did not do SSR.
 ## angular.json
 
 ### Vitest Test Configuration
+
 ```diff
 +        "test": {
 +          "builder": "@angular/build:unit-test",
@@ -15,12 +16,13 @@ I took Tailwind as the CSS option, did not do SSR.
 +          }
 +        },
 ```
-**Description:** 
 
-Added Vitest, following the steps here [https://angular.dev/guide/testing/migrating-to-vitest](https://angular.dev/guide/testing/migrating-to-vitest)
----
+**Description:**
+
+## Added Vitest, following the steps here [https://angular.dev/guide/testing/migrating-to-vitest](https://angular.dev/guide/testing/migrating-to-vitest)
 
 ### Additional Asset Directory (docs)
+
 ```diff
                {
                  "glob": "**/*",
@@ -31,13 +33,15 @@ Added Vitest, following the steps here [https://angular.dev/guide/testing/migrat
 +                "input": "docs"
                }
 ```
-**Description:** 
+
+**Description:**
 
 Added another asset directory for the markdown files that are in the developer guides.
 
 ---
 
 ### PrismJS Styles Integration
+
 ```diff
              "styles": [
 -              "src/styles.css"
@@ -47,12 +51,13 @@ Added another asset directory for the markdown files that are in the developer g
 +              "node_modules/prismjs/plugins/command-line/prism-command-line.css"
              ],
 ```
-**Description:** 
 
-The ng-markdown library uses Prismjs behind the scenes. I enabled a couple plugins and changed the theme.
----
+**Description:**
+
+## The ng-markdown library uses Prismjs behind the scenes. I enabled a couple plugins and changed the theme.
 
 ### PrismJS Scripts Integration
+
 ```diff
 +            "scripts": [
 +              "node_modules/prismjs/prism.js",
@@ -71,12 +76,13 @@ The ng-markdown library uses Prismjs behind the scenes. I enabled a couple plugi
 +              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js"
 +            ]
 ```
-**Description:** 
 
-More Prismjs stuff.
----
+**Description:**
+
+## More Prismjs stuff.
 
 ### Environment File Replacements
+
 ```diff
              "development": {
                "optimization": false,
@@ -91,13 +97,15 @@ More Prismjs stuff.
 +              ]
              }
 ```
-**Description:** 
+
+**Description:**
 
 Result of `ng generate environments`
 
 ---
 
 ### ESLint Configuration
+
 ```diff
 +        "lint": {
 +          "builder": "@angular-eslint/builder:lint",
@@ -109,12 +117,13 @@ Result of `ng generate environments`
 +          }
 +        },
 ```
-**Description:** 
 
-Added Angular ES Lint from [https://github.com/angular-eslint/angular-eslint](https://github.com/angular-eslint/angular-eslint)
----
+**Description:**
+
+## Added Angular ES Lint from [https://github.com/angular-eslint/angular-eslint](https://github.com/angular-eslint/angular-eslint)
 
 ### Playwright E2E Testing
+
 ```diff
 +        "e2e": {
 +          "builder": "playwright-ng-schematics:playwright",
@@ -128,12 +137,13 @@ Added Angular ES Lint from [https://github.com/angular-eslint/angular-eslint](ht
 +          }
 +        },
 ```
-**Description:** 
 
-Using Playwright for Angular Testing. Instructions: [https://angular.dev/tools/cli/end-to-end](https://angular.dev/tools/cli/end-to-end)
----
+**Description:**
+
+## Using Playwright for Angular Testing. Instructions: [https://angular.dev/tools/cli/end-to-end](https://angular.dev/tools/cli/end-to-end)
 
 ### Storybook Configuration
+
 ```diff
 +        "storybook": {
 +          "builder": "@storybook/angular:start-storybook",
@@ -166,17 +176,15 @@ Using Playwright for Angular Testing. Instructions: [https://angular.dev/tools/c
 +          }
 +        }
 ```
-**Description:** 
 
-Added Storybook. Also changed it to use vite as the builder.
----
+**Description:**
+
+## Added Storybook. Also changed it to use vite as the builder.
 
 ## package.json
 
-
-
-
 ### Additional NPM Scripts
+
 ```diff
    "scripts": {
      "ng": "ng",
@@ -202,12 +210,13 @@ Added Storybook. Also changed it to use vite as the builder.
 +    "build-storybook": "ng run angular-starter:build-storybook"
    },
 ```
-**Description:** 
 
-Bunch of these. I like them. 
----
+**Description:**
+
+## Bunch of these. I like them.
 
 ### Additional Runtime Dependencies
+
 ```diff
      "@angular/forms": "^21.1.0",
      "@angular/platform-browser": "^21.1.0",
@@ -223,12 +232,13 @@ Bunch of these. I like them.
      "rxjs": "~7.8.0",
      "tslib": "^2.3.0"
 ```
-**Description:** 
 
-All pretty obvious.
----
+**Description:**
+
+## All pretty obvious.
 
 ### Additional Development Dependencies
+
 ```diff
    "devDependencies": {
 +    "@angular-devkit/architect": "^0.2101.0",
@@ -274,11 +284,13 @@ All pretty obvious.
 +    "vitest": "^4.0.18"
 +  },
 ```
-**Description:** 
+
+**Description:**
 
 ---
 
 ### MSW Configuration
+
 ```diff
 +  "msw": {
 +    "workerDirectory": [
@@ -286,14 +298,15 @@ All pretty obvious.
 +    ]
    }
 ```
-**Description:** 
 
-[MSW](https://mswjs.io) adds these automatically with init.
----
+**Description:**
+
+## [MSW](https://mswjs.io) adds these automatically with init.
 
 ## tsconfig.app.json
 
 ### Formatting & Template Exclusion
+
 ```diff
 -  "include": [
 -    "src/**/*.ts"
@@ -304,13 +317,15 @@ All pretty obvious.
 +  "include": ["src/**/*.ts"],
 +  "exclude": ["src/**/*.spec.ts", ".templates/**/*"]
 ```
-**Description:** 
+
+**Description:**
 
 ---
 
 ## tsconfig.json
 
 ### Path Aliases
+
 ```diff
    "compileOnSave": false,
    "compilerOptions": {
@@ -321,14 +336,15 @@ All pretty obvious.
 +
      "strict": true,
 ```
-**Description:** 
 
-Like to set at least one path to make imports cleaner.
----
+**Description:**
+
+## Like to set at least one path to make imports cleaner.
 
 ## tsconfig.spec.json
 
 ### Formatting Changes
+
 ```diff
    "compilerOptions": {
      "outDir": "./out-tsc/spec",
@@ -343,7 +359,8 @@ Like to set at least one path to make imports cleaner.
 -  ]
 +  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
 ```
-**Description:** 
+
+**Description:**
 
 ---
 
@@ -359,7 +376,6 @@ The big changes here are:
 - Slightly tweaked some default rules (const, etc.)
 - Made it so it will let me use `type` instead of `interface` because it isn't the boss of me.
 
-
 ```diff
 --- eslint.config.js	2026-01-25 20:11:17
 +++ ../angular-starter-2026/eslint.config.js	2026-01-25 19:51:11
@@ -371,7 +387,7 @@ The big changes here are:
 -const angular = require("angular-eslint");
 +// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 +import storybook from "eslint-plugin-storybook";
- 
+
 -module.exports = defineConfig([
 -  {
 -    files: ["**/*.ts"],
