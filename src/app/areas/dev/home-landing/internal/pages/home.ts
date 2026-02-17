@@ -1,33 +1,36 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, VERSION, signal } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
 import { BasicCard } from '@ht/shared/ui-common/cards/basic-card';
-import { VERSION } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
+
 @Component({
-  selector: 'ht-home-about',
+  selector: 'ht-home-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PageLayout, BasicCard],
+  imports: [PageLayout, BasicCard, NgIcon],
   template: `
-    <app-ui-page title="About the Starter Project">
+    <app-ui-page title="This Starter">
       <div class="flex flex-row gap-4 content-start items-start py-8">
-        <div class="alert alert-neutral  ">
-          <p class="font-bold">Angular Version: {{ version }}</p>
-        </div>
+        <a class="alert alert-neutral  " href="https://angular.io/" target="_blank">
+          <p class="font-bold">
+            <ng-icon name="lucideLink" class="size-4"></ng-icon> Angular Version: {{ version }}
+          </p>
+        </a>
         <a
-          class="btn btn-primary"
+          class="alert alert-neutral "
           target="_blank"
           href="https://github.com/HypertheoryTraining/angular-starter-2026"
-          >GitHub Repo</a
+          ><ng-icon name="lucideLink" class="size-4"></ng-icon> GitHub Repo</a
         >
       </div>
       <app-ui-card-basic title="Includes" class="mt-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           @for (feature of features(); track feature.title) {
             <div
-              class="card-border bg-base-200 shadow-lg shadow-base-300 text-secondary-content h-full  flex flex-col content-start justify-items-start"
+              class="card-border bg-base-200 shadow-lg shadow-base-300 text-secondary-content h-full  flex flex-col content-start justify-items-start hover:bg-base-300 hover:scale-105 transition"
             >
               <div class="p-4">
                 <h2 class="font-bold text-secondary mb-2">{{ feature.title }}</h2>
-                <p>{{ feature.description }}</p>
+                <p class="text-base-content">{{ feature.description }}</p>
                 <a href="{{ feature.link }}" target="_blank" class="text-primary mt-2 inline-block"
                   >Learn More at {{ feature.link }}</a
                 >
@@ -40,7 +43,7 @@ import { VERSION } from '@angular/core';
   `,
   styles: ``,
 })
-export class AboutPage {
+export class HomePage {
   version = VERSION.full;
   features = signal([
     {

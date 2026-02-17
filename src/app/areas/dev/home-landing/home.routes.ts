@@ -1,16 +1,18 @@
 import { Routes } from '@angular/router';
-import { HomePage } from '@ht/home/feature-landing/internal/pages/home';
 import { Home } from './internal/home';
+import { HomePage } from './internal/pages/home';
 
-export const homeLandingFeatureRoutes: Routes = [
+
+export const homeFeatureRoutes: Routes = [
   {
     path: '',
+    providers: [],
     component: Home,
     children: [
       {
         path: '',
-        component: HomePage,
-      },
-    ],
+        component: HomePage
+      }
+    ]
   },
 ];

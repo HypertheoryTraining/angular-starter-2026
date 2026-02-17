@@ -14,6 +14,11 @@ export const routes: Routes = [
         (r) => r.profileLandingFeatureRoutes,
       ),
   },
+  {
+    path: 'dev',
+    loadChildren: () =>
+      import('./areas/dev/home-landing/home.routes').then((r) => r.homeFeatureRoutes),
+  },
 
   {
     path: '**',

@@ -40,7 +40,7 @@ import { IconName, NgIcon } from '@ng-icons/core';
             >
               <span class="flex flex-row gap-2 justify-items-center items-center">
                 <ng-icon name="lucideHome" class="size-4"></ng-icon>
-                <span class="is-drawer-close:hidden  ">Home</span>
+                <span class="is-drawer-close:hidden">Home</span>
               </span>
             </a>
           </li>
@@ -54,7 +54,7 @@ import { IconName, NgIcon } from '@ng-icons/core';
               >
                 <span class="flex flex-row gap-2 justify-items-center items-center">
                   <ng-icon [name]="link.icon" class="size-4"></ng-icon>
-                  <span class="is-drawer-close:hidden  ">{{ link.title }}</span>
+                  <span class="is-drawer-close:hidden">{{ link.title }}</span>
                 </span>
               </a>
             </li>
@@ -88,5 +88,11 @@ export class App {
     return this.router.url.startsWith('/home');
   }
   store = inject(authStore);
-  links = signal<(SectionLink & { icon: IconName })[]>([]);
+  links = signal<(SectionLink & { icon: IconName })[]>([
+    {
+      title: 'Dev',
+      path: '/dev',
+      icon: 'lucideTerminal',
+    },
+  ]);
 }
