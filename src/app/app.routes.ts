@@ -21,7 +21,7 @@ const devRoutes: Routes = [
   {
     path: 'dev',
     loadChildren: () =>
-      import('./areas/dev/home-landing/home.routes').then((r) => r.homeFeatureRoutes),
+      import('./areas/dev/feature-home/home.routes').then((r) => r.homeFeatureRoutes),
   },
 ];
 

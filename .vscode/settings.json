@@ -31,7 +31,7 @@
     "trivago"
   ],
   "files.exclude": {
-    "**/.templates": true
+    "**/.templates": false
   },
   "l13Diff.exclude": [
     "**/.DS_Store",
