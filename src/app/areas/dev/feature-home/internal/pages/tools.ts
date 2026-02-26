@@ -71,6 +71,12 @@ export class ToolsPage {
       link: 'https://github.com/angular-eslint/angular-eslint',
     },
     {
+      title: 'ngxtension',
+      description:
+        'A collection of utilities, composables, and pipes for Angular applications, providing powerful extensions for signals, routing, forms, and more.',
+      link: 'https://ngxtension.dev/',
+    },
+    {
       title: 'Prettier',
       description:
         'An opinionated code formatter that enforces a consistent style by parsing your code and re-printing it with its own rules.',
