@@ -25,6 +25,7 @@ export const skeletonVariants = cva(mergeClasses('skeleton'), {
   },
   defaultVariants: {
     htType: 'default',
+    htSize: 'md',
   },
 });
 

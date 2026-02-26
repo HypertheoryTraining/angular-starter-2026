@@ -1,17 +1,19 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
+import { isDevMode } from '@angular/core';
 import { SectionLink } from '@ht/shared/ui-common/layouts/section';
 import { authStore } from '@ht/shared/util-auth/store';
 import { IconName, NgIcon } from '@ng-icons/core';
-import { isDevMode } from '@angular/core';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon],
   template: ` <div class="drawer lg:drawer-open">
     <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
 
-    <div class="drawer-content"><router-outlet /></div>
+    <div class="drawer-content">
+      <router-outlet />
+    </div>
 
     <div
       class="drawer-side is-drawer-close:overflow-visible bg-linear-to-b from-base-300 to-base-100"
