@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { SectionLink } from '@ht/shared/ui-common/layouts/section';
 import { authStore } from '@ht/shared/util-auth/store';
 import { IconName, NgIcon } from '@ng-icons/core';
-
+import { isDevMode } from '@angular/core';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon],
@@ -60,8 +60,22 @@ import { IconName, NgIcon } from '@ng-icons/core';
             </li>
           }
           <!-- List item -->
-
-          <li class="mt-auto">
+          @if (devMode()) {
+            <li class="mt-auto">
+              <a
+                routerLink="dev"
+                class="is-drawer-close:tooltip is-drawer-close:tooltip-right "
+                data-tip="Development"
+                routerLinkActive="bg-accent text-accent-content"
+              >
+                <span class="flex flex-row gap-2 justify-items-center items-center">
+                  <ng-icon name="lucideTerminal" class="size-4"></ng-icon>
+                  <span class="is-drawer-close:hidden">Dev Notes</span>
+                </span>
+              </a>
+            </li>
+          }
+          <li [class.mt-auto]="!devMode()">
             <a
               routerLink="profile"
               class="is-drawer-close:tooltip is-drawer-close:tooltip-right btn btn-primary btn-sm   text-primary-content"
@@ -80,6 +94,7 @@ import { IconName, NgIcon } from '@ng-icons/core';
   styles: [],
 })
 export class App {
+  protected readonly devMode = isDevMode;
   protected router = inject(Router);
   goHome() {
     this.router.navigateByUrl('/home');
@@ -88,11 +103,5 @@ export class App {
     return this.router.url.startsWith('/home');
   }
   store = inject(authStore);
-  links = signal<(SectionLink & { icon: IconName })[]>([
-    {
-      title: 'Dev',
-      path: '/dev',
-      icon: 'lucideTerminal',
-    },
-  ]);
+  links = signal<(SectionLink & { icon: IconName })[]>([]);
 }

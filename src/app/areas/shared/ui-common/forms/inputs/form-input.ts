@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormValueControl } from '@angular/forms/signals';
 
@@ -19,7 +19,6 @@ import { FormValueControl } from '@angular/forms/signals';
   selector: 'app-ui-form-input',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="form-control">
       @if (label()) {

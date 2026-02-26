@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
     <div class="p-4 bg-base-200 rounded-sm shadow-lg shadow-base-300 m-2">

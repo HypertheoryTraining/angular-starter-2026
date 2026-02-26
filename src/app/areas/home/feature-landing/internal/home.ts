@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SectionLayout, SectionLink } from '@ht/shared/ui-common/layouts/section';
 
 @Component({
   selector: 'ht-landing-home-page',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SectionLayout],
   template: `
     <app-ui-section-layout title="Hypertheory Angular Starter 2026" [links]="links()" />

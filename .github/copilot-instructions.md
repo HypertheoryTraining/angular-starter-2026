@@ -8,7 +8,7 @@ This is an Angular standalone components project organized by feature areas unde
 
 - **Standalone Components**: Always use standalone components (no NgModules)
 - **Signals**: Prefer Angular signals for reactive state management
-- **Change Detection**: Use `ChangeDetectionStrategy.OnPush` for all components
+- **Change Detection**: Do not add the `ChangeDetectionStrategy.OnPush' for components, as this is the default as of Angular 21.2
 - **File Naming**: Use kebab-case for file names (e.g., `user-profile.ts`)
 - **Component Naming**: Components should have descriptive names ending with the component type (e.g., `UserProfileComponent`)
 - **No Component Suffix in Filenames**: Do not include `.component` in file names - use `user-profile.ts`, not `user-profile.component.ts`

@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-data-display-card',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
     <div class="card bg-base-100 shadow-xl">

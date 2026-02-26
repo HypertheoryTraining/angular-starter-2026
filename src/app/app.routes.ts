@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
+import { isDevMode } from '@angular/core';
 
-export const routes: Routes = [
+const realRoutes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
@@ -14,14 +15,21 @@ export const routes: Routes = [
         (r) => r.profileLandingFeatureRoutes,
       ),
   },
+];
+
+const devRoutes: Routes = [
   {
     path: 'dev',
     loadChildren: () =>
       import('./areas/dev/home-landing/home.routes').then((r) => r.homeFeatureRoutes),
   },
+];
 
+const redirectRoutes: Routes = [
   {
     path: '**',
     redirectTo: 'home',
   },
 ];
+
+export const routes: Routes = [...realRoutes, ...(isDevMode() ? devRoutes : []), ...redirectRoutes];

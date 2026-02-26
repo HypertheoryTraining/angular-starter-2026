@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
 import { authStore } from '@ht/shared/util-auth/store';
 import { DataDisplayCard } from '@ht/shared/ui-common/data-display/card';
@@ -6,7 +6,6 @@ import { CardItemText } from '@ht/shared/ui-common/data-display/card-item-text';
 
 @Component({
   selector: 'app-profile-home',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageLayout, DataDisplayCard, CardItemText],
   template: `
     <app-ui-page title="Profile">

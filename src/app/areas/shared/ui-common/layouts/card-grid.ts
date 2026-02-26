@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-ui-card-grid-layout',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-fit auto-rows-fr    gap-4">

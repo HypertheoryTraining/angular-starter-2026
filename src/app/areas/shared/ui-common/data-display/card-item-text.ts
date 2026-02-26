@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-data-display-card-text-item',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
     <div class="flex flex-col sm:flex-row sm:gap-4">
