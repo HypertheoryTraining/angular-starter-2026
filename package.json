@@ -18,7 +18,7 @@
     "generate-types": "openapi-ts",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
-    "scaffold": "./scaffold.sh1"
+    "scaffold": "./scaffold.sh"
   },
   "prettier": {
     "printWidth": 100,
