@@ -22,7 +22,6 @@ import {
   type HtButtonSizeVariants,
   type HtButtonTypeVariants,
 } from './button-variants';
-// import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 
 @Component({
   selector: 'ht-button, button[ht-button], a[ht-button]',
