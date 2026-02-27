@@ -11,6 +11,7 @@ import { CheckboxesPage } from './internal/pages/checkboxes';
 import { SkeletonsPage } from './internal/pages/skeletons';
 import { ProgressPage } from './internal/pages/progress';
 import { TooltipsPage } from './internal/pages/tooltips';
+import { FormsPage } from './internal/pages/forms';
 
 export const homeFeatureRoutes: Routes = [
   {
@@ -66,6 +67,10 @@ export const homeFeatureRoutes: Routes = [
             component: TooltipsPage,
           },
         ],
+      },
+      {
+        path: 'forms',
+        component: FormsPage,
       },
     ],
   },

@@ -19,5 +19,9 @@ export class Home {
       title: 'Components',
       path: 'components',
     },
+    {
+      title: 'Forms',
+      path: 'forms',
+    },
   ]);
 }

@@ -75,13 +75,39 @@
 @layer utilities {
   .btn[aria-disabled='true']:not(.btn-link .btn-ghost) {
     background-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      oklch(0% 0 0 / 0.15) 10px,
+      oklch(0% 0 0 / 0.15) 20px
+    );
     border: none;
     color: var(--color-base) 10%;
     @apply hover:ring-0 hover:scale-none hover:shadow-none;
   }
   .btn[disabled]:not(.btn-link .btn-ghost) {
     background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      oklch(0% 0 0 / 0.15) 10px,
+      oklch(0% 0 0 / 0.15) 20px
+    );
     border: none;
     color: var(--color-base) 10%;
+  }
+
+  input[disabled],
+  select[disabled],
+  textarea[disabled] {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      oklch(0% 0 0 / 0.15) 10px,
+      oklch(0% 0 0 / 0.15) 20px
+    );
   }
 }
