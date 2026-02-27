@@ -8,6 +8,7 @@ import {
   minLength,
   pattern,
   required,
+  validate,
 } from '@angular/forms/signals';
 import { HtButtonComponent } from '@ht/shared/ui-common/buttons/button';
 import { FormErrorSummaryComponent } from '@ht/shared/ui-common/forms/form-error-summary';
@@ -149,7 +150,20 @@ export class FormsPage {
       maxLength(schema.name, 15, { message: 'Name must be at most 15 characters long' });
       required(schema.position, { message: 'Position is required' });
       required(schema.startDate, { message: 'Start Date is required' });
+      validate(schema.startDate, ({ value }) => {
+        const d = value() as unknown as string | null;
 
+        if (d === null) {
+          return null;
+        }
+
+        const d2 = new Date(d);
+        if (d2 < new Date()) {
+          return { kind: 'startDateInPast', message: 'Start Date cannot be in the past' };
+        }
+
+        return null;
+      });
       required(schema.contactInformation.email, { message: 'Email is required' });
       email(schema.contactInformation.email, { message: 'Please enter a valid email address' });
       required(schema.contactInformation.phone, { message: 'Phone number is required' });
