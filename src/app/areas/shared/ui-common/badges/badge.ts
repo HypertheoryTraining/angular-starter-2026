@@ -31,7 +31,7 @@ import {
 export class HtBadgeComponent {
   readonly htType = input<HtBadgeTypeVariants>('default');
   readonly htSize = input<HtBadgeSizeVariants>('default');
-  readonly class = input<ClassValue>('');
+  readonly class = input<ClassValue>('rounded-2xl hover:scale-105');
   readonly htOutline = input(false, { transform: booleanAttribute });
 
   protected readonly classes = computed(() =>

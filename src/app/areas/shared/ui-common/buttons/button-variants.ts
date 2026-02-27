@@ -36,6 +36,9 @@ export const buttonVariants = cva(mergeClasses('btn'), {
     hDisabled: {
       true: 'pointer-events-none opacity-50',
     },
+    hAriaDisabled: {
+      true: 'opacity-50 cursor-not-allowed',
+    },
   },
   defaultVariants: {
     htType: 'default',

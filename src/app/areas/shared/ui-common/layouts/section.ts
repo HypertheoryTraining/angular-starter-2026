@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { Route, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Icon } from '../icons/icon';
-import { Breadcrumbs } from '@ht/shared/ui-breadcrumbs/breadcrumbs';
+import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 export type SectionLink = Pick<Route, 'path' | 'title'>;
 @Component({
   selector: 'app-ui-section-layout',
@@ -15,7 +15,6 @@ export type SectionLink = Pick<Route, 'path' | 'title'>;
           <app-ui-icon name="lucideChevronsUpDown" class="size-4 rotate-90" />
         </label>
         <div class="flex flex-col">
-          <app-ui-breadcrumbs />
           <div class="flex flex-row gap-2 justify-items-start items-center">
             <a
               routerLink="."
@@ -41,6 +40,7 @@ export type SectionLink = Pick<Route, 'path' | 'title'>;
               </div>
             }
           </div>
+          <app-ui-breadcrumbs />
         </div>
       </div>
     </nav>

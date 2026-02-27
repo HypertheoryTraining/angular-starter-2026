@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-
+import { injectLocalStorage } from 'ngxtension/inject-local-storage';
 import { isDevMode } from '@angular/core';
 import { SectionLink } from '@ht/shared/ui-common/layouts/section';
 import { authStore } from '@ht/shared/util-auth/store';
@@ -9,7 +9,14 @@ import { IconName, NgIcon } from '@ng-icons/core';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon],
   template: ` <div class="drawer lg:drawer-open">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <input
+      id="my-drawer-4"
+      type="checkbox"
+      class="drawer-toggle"
+      #drawerToggle
+      [checked]="ls()"
+      (change)="onDrawerToggle(drawerToggle)"
+    />
 
     <div class="drawer-content">
       <router-outlet />
@@ -96,14 +103,24 @@ import { IconName, NgIcon } from '@ng-icons/core';
   styles: [],
 })
 export class App {
+  store = inject(authStore);
+  links = signal<(SectionLink & { icon: IconName })[]>([]);
   protected readonly devMode = isDevMode;
   protected router = inject(Router);
+
+  protected readonly ls = injectLocalStorage<boolean>('drawerState', {
+    defaultValue: false,
+  });
+
+  onDrawerToggle(t: HTMLInputElement) {
+    this.ls.set(t.checked);
+  }
+
   goHome() {
     this.router.navigateByUrl('/home');
   }
+
   isHome() {
     return this.router.url.startsWith('/home');
   }
-  store = inject(authStore);
-  links = signal<(SectionLink & { icon: IconName })[]>([]);
 }

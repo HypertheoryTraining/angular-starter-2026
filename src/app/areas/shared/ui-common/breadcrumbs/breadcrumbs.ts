@@ -12,7 +12,7 @@ interface BreadcrumbSegment {
   selector: 'app-ui-breadcrumbs',
   imports: [RouterLink],
   template: `
-    <div class="breadcrumbs text-xs font-light">
+    <div class="breadcrumbs text-xs font-extralight opacity-70  absolute top-0 right-0 pr-4">
       <ul>
         @for (segment of breadcrumbs(); track segment.path) {
           <li>

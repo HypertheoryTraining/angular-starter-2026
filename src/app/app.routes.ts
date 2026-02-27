@@ -3,7 +3,7 @@ import { isDevMode } from '@angular/core';
 
 const realRoutes: Routes = [
   {
-    path: 'home',
+    path: '',
     loadChildren: () =>
       import('./areas/home/feature-landing/landing.routes').then((r) => r.homeLandingFeatureRoutes),
   },
@@ -28,7 +28,7 @@ const devRoutes: Routes = [
 const redirectRoutes: Routes = [
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '',
   },
 ];
 

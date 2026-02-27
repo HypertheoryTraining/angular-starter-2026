@@ -33,7 +33,8 @@ import {
     '[class]': 'classes()',
     '[attr.data-icon-only]': 'iconOnly() || null',
     '[attr.data-disabled]': 'isNotInsideOfButtonOrLink() && htDisabled() || null',
-    '[attr.aria-disabled]': 'isNotInsideOfButtonOrLink() && htDisabled() || null',
+    '[attr.aria-disabled]':
+      'isNotInsideOfButtonOrLink() && (htDisabled() || htAriaDisabled()) || null',
     '[attr.disabled]': 'isNotInsideOfButtonOrLink() && htDisabled() ? "" : null',
     '[attr.role]': 'isNotInsideOfButtonOrLink() ? "button" : null',
     '[attr.tabindex]': 'isNotInsideOfButtonOrLink() ? "0" : null',
@@ -46,10 +47,13 @@ export class HtButtonComponent implements OnDestroy {
   readonly htType = input<HtButtonTypeVariants>('default');
   readonly htSize = input<HtButtonSizeVariants>('default');
   readonly htShape = input<HtButtonShapeVariants>('default');
-  readonly class = input<ClassValue>('');
+  readonly class = input<ClassValue>(
+    'transition-all duration-300 hover:shadow-md hover:shadow-black/80 hover:scale-105',
+  );
   readonly htFull = input(false, { transform: booleanAttribute });
   readonly htLoading = input(false, { transform: booleanAttribute });
   readonly htDisabled = input(false, { transform: booleanAttribute });
+  readonly htAriaDisabled = input(false, { transform: booleanAttribute });
 
   private readonly iconOnlyState = signal(false);
   readonly iconOnly = this.iconOnlyState.asReadonly();
@@ -109,6 +113,7 @@ export class HtButtonComponent implements OnDestroy {
         hFull: this.htFull(),
         hLoading: this.htLoading(),
         hDisabled: this.htDisabled(),
+        hAriaDisabled: this.htAriaDisabled(),
       }),
       this.class(),
     ),

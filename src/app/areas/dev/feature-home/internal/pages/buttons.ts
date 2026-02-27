@@ -83,12 +83,14 @@ import { DemoTabsComponent } from '@ht/shared/ui-common/tabs/tabs';
           htmlSource='<button ht-button>Normal</button>
 <button ht-button htLoading>Loading</button>
 <button ht-button htDisabled>Disabled</button>
+<button ht-button htAriaDisabled>Aria Disabled (Still Interactive)</button>
 <button ht-button htType="primary" htLoading>Primary Loading</button>'
         >
           <div class="flex flex-wrap items-center gap-2">
             <button ht-button>Normal</button>
             <button ht-button htLoading>Loading</button>
             <button ht-button htDisabled>Disabled</button>
+            <button ht-button htAriaDisabled>Aria Disabled (Still Interactive)</button>
             <button ht-button htType="primary" htLoading>Primary Loading</button>
           </div>
         </app-ui-demo-tabs>
