@@ -13,22 +13,21 @@ import {
 } from './input-variants';
 
 /**
- * A reusable form input component that works with Angular Signal Forms.
+ * A reusable date input component that works with Angular Signal Forms.
  * Follows DaisyUI styling conventions with variant support.
  *
  * @example
  * ```html
- * <app-ui-form-input
- *   id="firstName"
- *   label="First Name"
- *   placeholder="Enter your first name"
+ * <app-ui-form-date-input
+ *   id="startDate"
+ *   label="Start Date"
  *   htSize="lg"
  *   htColor="primary"
  * />
  * ```
  */
 @Component({
-  selector: 'app-ui-form-input',
+  selector: 'app-ui-form-date-input',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule],
   template: `
@@ -39,13 +38,11 @@ import {
         </label>
       }
       <input
+        type="date"
         [value]="value()"
         (input)="onChange($any($event.target).value)"
         (focusin)="touched.set(true)"
-        [type]="type()"
         [id]="id()"
-        [placeholder]="placeholder()"
-        [autocomplete]="autocomplete()"
         [disabled]="disabled()"
         [readonly]="readonly()"
         [hidden]="hidden()"
@@ -65,7 +62,7 @@ import {
     </div>
   `,
 })
-export class FormInputComponent implements FormValueControl<string> {
+export class FormDateInputComponent implements FormValueControl<string> {
   // Variant properties
   readonly htType = input<HtInputTypeVariants>('default');
   readonly htColor = input<HtInputColorVariants>('default');
@@ -77,12 +74,9 @@ export class FormInputComponent implements FormValueControl<string> {
   readonly id = input.required<string>();
   readonly value = model<string>('');
   readonly label = input<string>('');
-  readonly placeholder = input<string>('');
   readonly touched = model<boolean>(false);
   readonly dirty = model<boolean>(false);
-  readonly invalid = model<boolean>(false);
-  readonly type = input<'text' | 'email' | 'password' | 'number' | 'tel' | 'url'>('text');
-  readonly autocomplete = input<string>('');
+  readonly invalid = input<boolean>(false);
   readonly hint = input<string>('');
   readonly errorMessage = input<string>('');
 

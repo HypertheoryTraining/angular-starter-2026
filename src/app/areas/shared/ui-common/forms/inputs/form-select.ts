@@ -6,29 +6,29 @@ import type { ClassValue } from 'clsx';
 import { mergeClasses } from '@ht/shared/util-components/merge-classes';
 
 import {
-  inputVariants,
-  type HtInputColorVariants,
-  type HtInputSizeVariants,
-  type HtInputTypeVariants,
-} from './input-variants';
+  selectVariants,
+  type HtSelectColorVariants,
+  type HtSelectSizeVariants,
+  type HtSelectTypeVariants,
+} from './select-variants';
 
 /**
- * A reusable form input component that works with Angular Signal Forms.
+ * A reusable select component that works with Angular Signal Forms.
  * Follows DaisyUI styling conventions with variant support.
  *
  * @example
  * ```html
- * <app-ui-form-input
- *   id="firstName"
- *   label="First Name"
- *   placeholder="Enter your first name"
+ * <app-ui-form-select
+ *   id="position"
+ *   label="Position"
+ *   [options]="positions"
  *   htSize="lg"
  *   htColor="primary"
  * />
  * ```
  */
 @Component({
-  selector: 'app-ui-form-input',
+  selector: 'app-ui-form-select',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule],
   template: `
@@ -38,20 +38,24 @@ import {
           <span class="label-text font-medium">{{ label() }}</span>
         </label>
       }
-      <input
+      <select
         [value]="value()"
-        (input)="onChange($any($event.target).value)"
+        (change)="onChange($any($event.target).value)"
         (focusin)="touched.set(true)"
-        [type]="type()"
         [id]="id()"
-        [placeholder]="placeholder()"
-        [autocomplete]="autocomplete()"
         [disabled]="disabled()"
-        [readonly]="readonly()"
-        [hidden]="hidden()"
         [required]="required()"
-        [class]="inputClasses()"
-      />
+        [class]="selectClasses()"
+      >
+        @if (placeholder()) {
+          <option value="" disabled [selected]="!value()">{{ placeholder() }}</option>
+        }
+        @for (option of options(); track trackByFn($index, option)) {
+          <option [value]="getOptionValue(option)">
+            {{ getOptionLabel(option) }}
+          </option>
+        }
+      </select>
       @if (hint()) {
         <label class="label">
           <span class="label-text-alt">{{ hint() }}</span>
@@ -65,11 +69,11 @@ import {
     </div>
   `,
 })
-export class FormInputComponent implements FormValueControl<string> {
+export class FormSelectComponent<T = string> implements FormValueControl<string> {
   // Variant properties
-  readonly htType = input<HtInputTypeVariants>('default');
-  readonly htColor = input<HtInputColorVariants>('default');
-  readonly htSize = input<HtInputSizeVariants>('default');
+  readonly htType = input<HtSelectTypeVariants>('default');
+  readonly htColor = input<HtSelectColorVariants>('default');
+  readonly htSize = input<HtSelectSizeVariants>('default');
   readonly htFull = input(true, { transform: booleanAttribute });
   readonly class = input<ClassValue>('');
 
@@ -77,21 +81,22 @@ export class FormInputComponent implements FormValueControl<string> {
   readonly id = input.required<string>();
   readonly value = model<string>('');
   readonly label = input<string>('');
-  readonly placeholder = input<string>('');
+  readonly placeholder = input<string>('Select one');
   readonly touched = model<boolean>(false);
   readonly dirty = model<boolean>(false);
-  readonly invalid = model<boolean>(false);
-  readonly type = input<'text' | 'email' | 'password' | 'number' | 'tel' | 'url'>('text');
-  readonly autocomplete = input<string>('');
+  readonly invalid = input<boolean>(false);
   readonly hint = input<string>('');
   readonly errorMessage = input<string>('');
 
+  // Select-specific properties
+  readonly options = input.required<T[]>();
+  readonly optionValue = input<keyof T | ((option: T) => string)>();
+  readonly optionLabel = input<keyof T | ((option: T) => string)>();
+
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly required = input(false, { transform: booleanAttribute });
-  readonly readonly = input(false, { transform: booleanAttribute });
-  readonly hidden = input(false, { transform: booleanAttribute });
 
-  protected readonly inputClasses = computed(() => {
+  protected readonly selectClasses = computed(() => {
     // Determine color based on validation state if not explicitly set
     let color = this.htColor();
     if (color === 'default') {
@@ -103,7 +108,7 @@ export class FormInputComponent implements FormValueControl<string> {
     }
 
     return mergeClasses(
-      inputVariants({
+      selectVariants({
         htType: this.htType(),
         htColor: color,
         hSize: this.htSize(),
@@ -116,5 +121,31 @@ export class FormInputComponent implements FormValueControl<string> {
   onChange(value: string): void {
     this.value.set(value);
     this.dirty.set(true);
+  }
+
+  protected getOptionValue(option: T): string {
+    const valueConfig = this.optionValue();
+    if (!valueConfig) {
+      return String(option);
+    }
+    if (typeof valueConfig === 'function') {
+      return valueConfig(option);
+    }
+    return String(option[valueConfig]);
+  }
+
+  protected getOptionLabel(option: T): string {
+    const labelConfig = this.optionLabel();
+    if (!labelConfig) {
+      return String(option);
+    }
+    if (typeof labelConfig === 'function') {
+      return labelConfig(option);
+    }
+    return String(option[labelConfig]);
+  }
+
+  protected trackByFn(index: number, option: T): string | number {
+    return this.getOptionValue(option) || index;
   }
 }

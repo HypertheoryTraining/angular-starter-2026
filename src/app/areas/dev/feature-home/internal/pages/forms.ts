@@ -1,15 +1,27 @@
-import { JsonPipe } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { form, FormField, FormRoot, required } from '@angular/forms/signals';
+import { Component, ElementRef, signal, viewChild } from '@angular/core';
+import {
+  email,
+  form,
+  FormField,
+  FormRoot,
+  maxLength,
+  minLength,
+  pattern,
+  required,
+} from '@angular/forms/signals';
 import { HtButtonComponent } from '@ht/shared/ui-common/buttons/button';
+import { FormErrorSummaryComponent } from '@ht/shared/ui-common/forms/form-error-summary';
+import { FormFieldErrorsComponent } from '@ht/shared/ui-common/forms/form-field-errors';
+import { FormDateInputComponent } from '@ht/shared/ui-common/forms/inputs/form-date-input';
 import { FormInputComponent } from '@ht/shared/ui-common/forms/inputs/form-input';
+import { FormSelectComponent } from '@ht/shared/ui-common/forms/inputs/form-select';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
 
 const Jobs = ['Developer', 'Engineer', 'Designer', 'Manager'] as const;
 type HiringRequest = {
   name: string;
   position: (typeof Jobs)[number];
-  startDate: Date;
+  startDate: Date | null;
   isFullTime: boolean;
   contactInformation: {
     email: string;
@@ -18,41 +30,50 @@ type HiringRequest = {
 };
 @Component({
   selector: 'app-dev-pages-forms',
-  imports: [PageLayout, FormRoot, FormInputComponent, HtButtonComponent, FormField, JsonPipe],
+  imports: [
+    PageLayout,
+    FormRoot,
+    FormInputComponent,
+    FormDateInputComponent,
+    FormSelectComponent,
+    FormErrorSummaryComponent,
+    FormFieldErrorsComponent,
+    HtButtonComponent,
+    FormField,
+  ],
   template: `<app-ui-page title="Signal Forms Example">
     <form [formRoot]="form" class="space-y-6 max-w-2xl">
+      <app-ui-form-error-summary #summary [form]="form()" [submitted]="submitted()" />
       <div class="form-field">
-        <app-ui-form-input label="Name" [formField]="form.name" id="name"></app-ui-form-input>
+        <app-ui-form-input
+          label="Name"
+          [formField]="form.name"
+          id="name"
+          htSize="sm"
+        ></app-ui-form-input>
+        <app-ui-form-field-errors [formField]="form.name" />
       </div>
 
       <div class="form-field">
-        <label class="label" for="position">
-          <span class="label-text">Position</span>
-        </label>
-        <select
-          formControlName="position"
-          id="position"
-          class="select select-bordered w-full"
+        <app-ui-form-select
+          label="Position"
           [formField]="form.position"
-        >
-          <option>Select one</option>
-          @for (job of jobs; track job) {
-            <option [value]="job">{{ job }}</option>
-          }
-        </select>
+          id="position"
+          htSize="sm"
+          [options]="jobs"
+          placeholder="Select one"
+        />
+        <app-ui-form-field-errors [formField]="form.position" />
       </div>
 
       <div class="form-field">
-        <label class="label" for="startDate">
-          <span class="label-text">Start Date</span>
-        </label>
-        <input
-          type="date"
-          [formField]="form.startDate"
-          formControlName="startDate"
+        <app-ui-form-date-input
+          label="Start Date"
+          [formField]="$any(form.startDate)"
           id="startDate"
-          class="input input-bordered w-full"
+          htSize="sm"
         />
+        <app-ui-form-field-errors [formField]="$any(form.startDate)" />
       </div>
 
       <div class="form-field">
@@ -61,7 +82,7 @@ type HiringRequest = {
             type="checkbox"
             formControlName="isFullTime"
             id="isFullTime"
-            class="checkbox"
+            class="checkbox checkbox-xs checkbox-primary"
             [formField]="form.isFullTime"
           />
           <span class="label-text">Full Time Position</span>
@@ -76,8 +97,10 @@ type HiringRequest = {
             label="Email"
             [formField]="form.contactInformation.email"
             id="email"
+            htSize="sm"
             type="email"
           ></app-ui-form-input>
+          <app-ui-form-field-errors [formField]="form.contactInformation.email" />
         </div>
 
         <div class="form-field">
@@ -86,8 +109,10 @@ type HiringRequest = {
             formControlName="contactInformation.phone"
             id="phone"
             type="tel"
+            htSize="sm"
             [formField]="form.contactInformation.phone"
           ></app-ui-form-input>
+          <app-ui-form-field-errors [formField]="form.contactInformation.phone" />
         </div>
       </fieldset>
 
@@ -97,21 +122,18 @@ type HiringRequest = {
         </button>
         <button ht-button htType="secondary" type="reset">Reset</button>
       </div>
-      <pre>
-          {{ model() | json }}
-        </pre
-      >
     </form>
   </app-ui-page>`,
   styles: ``,
 })
 export class FormsPage {
-  protected readonly jobs = Jobs;
-
+  protected readonly jobs = [...Jobs]; // Create mutable copy for select component
+  protected readonly submitted = signal(false);
+  protected readonly summary = viewChild<FormErrorSummaryComponent>('summary');
   protected readonly model = signal<HiringRequest>({
     name: '',
-    position: Jobs[0],
-    startDate: new Date(),
+    position: '' as (typeof Jobs)[number],
+    startDate: null,
     isFullTime: false,
     contactInformation: {
       email: '',
@@ -122,19 +144,26 @@ export class FormsPage {
   form = form(
     this.model,
     (schema) => {
-      required(schema.name);
-      required(schema.position);
-      required(schema.startDate);
-      required(schema.isFullTime);
-      required(schema.contactInformation.email);
-      required(schema.contactInformation.phone);
+      required(schema.name, { message: 'Name is required' });
+      minLength(schema.name, 3, { message: 'Name must be at least 3 characters long' });
+      maxLength(schema.name, 15, { message: 'Name must be at most 15 characters long' });
+      required(schema.position, { message: 'Position is required' });
+      required(schema.startDate, { message: 'Start Date is required' });
+
+      required(schema.contactInformation.email, { message: 'Email is required' });
+      email(schema.contactInformation.email, { message: 'Please enter a valid email address' });
+      required(schema.contactInformation.phone, { message: 'Phone number is required' });
+      pattern(schema.contactInformation.phone, /^\d{3}-\d{4}$/, {
+        message: 'Phone number must be in the format 555-1234',
+      });
     },
     {
       name: 'HiringForm',
 
       submission: {
-        onInvalid(field, detail) {
-          console.log('Form Invalid', field, detail);
+        onInvalid: () => {
+          this.submitted.set(true);
+          this.summary()?.focus();
         },
         action: async (f) => {
           if (f().valid()) {
