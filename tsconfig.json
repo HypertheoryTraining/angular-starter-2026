@@ -23,6 +23,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
+  "exclude": ["tdr"],
   "files": [],
   "references": [
     {
