@@ -34,7 +34,7 @@
 @config "./tailwind-prose.config.js";
 
 @plugin "daisyui" {
-  theme: 'dark';
+  themes: dark --default --prefersdark, nord;
 }
 
 @plugin "daisyui/theme" {

@@ -19,6 +19,8 @@ import {
   lucideTerminal,
   lucideLink,
   lucideCircle,
+  lucideSun,
+  lucideMoon,
 } from '@ng-icons/lucide';
 
 export const icons = {
@@ -42,6 +44,8 @@ export const icons = {
   lucideTerminal,
   lucideLink,
   lucideCircle,
+  lucideSun,
+  lucideMoon,
 } as const;
 
 export type IconName = keyof typeof icons;
