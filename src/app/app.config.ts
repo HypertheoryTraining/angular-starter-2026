@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 
 import { icons } from '@ht/shared/ui-common/icons/types';
-import { AppUiStore } from '@ht/shared/ui-common/layouts/ui.store';
+import { appUiStore } from '@ht/shared/util-prefs/ui.store';
 import { authStore } from '@ht/shared/util-auth/store';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
     authStore,
-    AppUiStore,
+    appUiStore,
     provideIcons(icons),
   ],
 };

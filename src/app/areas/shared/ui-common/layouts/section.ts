@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { Route, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Icon } from '../icons/icon';
-import { AppUiStore } from './ui.store';
+import { appUiStore } from '../../util-prefs/ui.store';
 export type SectionLink = Pick<Route, 'path' | 'title'>;
 @Component({
   selector: 'app-ui-section-layout',
@@ -10,7 +10,11 @@ export type SectionLink = Pick<Route, 'path' | 'title'>;
     <!-- Navbar -->
     <nav class="navbar w-full bg-linear-to-r from-base-300 to-base-200">
       <div class="flex flex-row gap-2 justify-items-center items-center">
-        <button aria-label="open sidebar" class="btn btn-circle btn-ghost btn-sm" (click)="uiStore.toggleSidebar()">
+        <button
+          aria-label="open sidebar"
+          class="btn btn-circle btn-ghost btn-sm"
+          (click)="uiStore.toggleSidebar()"
+        >
           <app-ui-icon name="lucideChevronsUpDown" class="size-4 rotate-90" />
         </button>
         <a
@@ -38,7 +42,12 @@ export type SectionLink = Pick<Route, 'path' | 'title'>;
         }
       </div>
       <label class="swap swap-rotate  ml-auto mr-2">
-        <input type="checkbox" class="hidden" [checked]="uiStore.theme() === 'nord'" (change)="uiStore.toggleTheme()" />
+        <input
+          type="checkbox"
+          class="hidden"
+          [checked]="uiStore.theme() === 'nord'"
+          (change)="uiStore.toggleTheme()"
+        />
         <svg
           class="swap-off h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
@@ -69,5 +78,5 @@ export type SectionLink = Pick<Route, 'path' | 'title'>;
 export class SectionLayout {
   title = input.required<string>();
   links = input<Array<SectionLink> | null>(null);
-  uiStore = inject(AppUiStore);
+  uiStore = inject(appUiStore);
 }

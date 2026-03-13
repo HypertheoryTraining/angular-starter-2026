@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { SectionLink } from '@ht/shared/ui-common/layouts/section';
-import { AppUiStore } from '@ht/shared/ui-common/layouts/ui.store';
+import { appUiStore } from '@ht/shared/util-prefs/ui.store';
 import { authStore } from '@ht/shared/util-auth/store';
 import { IconName, NgIcon } from '@ng-icons/core';
 import { isDevMode } from '@angular/core';
@@ -10,14 +10,24 @@ import { isDevMode } from '@angular/core';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon],
   template: ` <div class="drawer lg:drawer-open">
-    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" [checked]="uiStore.sidebarOpen()" />
+    <input
+      id="my-drawer-4"
+      type="checkbox"
+      class="drawer-toggle"
+      [checked]="uiStore.sidebarOpen()"
+    />
 
     <div class="drawer-content"><router-outlet /></div>
 
     <div
       class="drawer-side is-drawer-close:overflow-visible bg-linear-to-b from-base-300 to-base-100"
     >
-      <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay" (click)="uiStore.setSidebar(false)"></label>
+      <label
+        for="my-drawer-4"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+        (click)="uiStore.setSidebar(false)"
+      ></label>
       <div class="flex min-h-full flex-col items-start is-drawer-close:w-14 is-drawer-open:w-48  ">
         <!-- Sidebar content here -->
 
@@ -104,6 +114,6 @@ export class App {
     return this.router.url.startsWith('/home');
   }
   store = inject(authStore);
-  uiStore = inject(AppUiStore);
+  uiStore = inject(appUiStore);
   links = signal<(SectionLink & { icon: IconName })[]>([]);
 }

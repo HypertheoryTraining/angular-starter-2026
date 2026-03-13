@@ -33,12 +33,6 @@ For Icons, I use `ng-icons` with the `lucide` [Icon pack](https://lucide.dev/ico
 - `@ng-icons/core`
 - `@ng-icons/lucide`
 
-In the developer section (which you are looking at now) I used `ngx-markdown` to convert markdown to Angular components.
-
-- `clipboard`
-- `marked`
-- `ngx-markdown`
-- `prismjs`
 
 ## State
 
