@@ -13,7 +13,6 @@
     "humao.rest-client",
     "wenfangdu.snippet-generator",
     "bradlc.vscode-tailwindcss",
-    "mattpocock.ts-error-translator",
     "orta.vscode-twoslash-queries",
     "vitest.explorer"
   ]
