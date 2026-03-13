@@ -18,7 +18,7 @@ export const AppUiStore = signalStore(
   withState(initialState),
   withMethods((store) => ({
     toggleTheme() {
-      patchState(store, (s) => ({ theme: s.theme === 'dark' ? 'nord' : 'dark' }));
+      patchState(store, (s) => ({ theme: s.theme() === 'dark' ? 'nord' : 'dark' }));
     },
     toggleSidebar() {
       patchState(store, (s) => ({ sidebarOpen: !s.sidebarOpen }));
